@@ -1,0 +1,16 @@
+version: 1.0
+configuration:
+  has_webserver: true
+  scoring:
+    command: rm -rf results.xml; pip3 install --user -r requirements.txt && python3 manage.py makemigrations && python3 manage.py migrate --run-syncdb && pytest --junit-xml=results.xml
+    files:
+      - results.xml
+  ide_config:
+    default_open_files:
+      - myapp/urls.py
+      - myapp/views.py
+      - myapp/models.py
+    project_menu:
+      run: pip3 install --user -r requirements.txt && python3 manage.py makemigrations && python3 manage.py migrate --run-syncdb && python3 manage.py runserver 0.0.0.0:8000
+      install: pip3 install --user -r requirements.txt
+      test: rm -f results.xml; python3 manage.py makemigrations && python3 manage.py migrate --run-syncdb && pytest --junit-xml=results.xml
